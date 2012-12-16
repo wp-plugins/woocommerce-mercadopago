@@ -1,8 +1,9 @@
 === WooCommerce MercadoPago ===
 Contributors: claudiosanches
+Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, mercadopago
 Requires at least: 3.0
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,11 +46,9 @@ Você pode esclarecer suas dúvidas usando:
 
 == Installation ==
 
-= Plugin Install: =
-
-* Upload plugin files to your plugins folder, or install using WordPress' built-in Add New Plugin installer
-* Activate the plugin
-* Navigate to WooCommerce -> Settings -> Payment Gateways, choose MercadoPago and fill in your MercadoPago Client_id and Client_secret
+* Upload plugin files to your plugins folder, or install using WordPress built-in Add New Plugin installer;
+* Activate the plugin;
+* Navigate to WooCommerce -> Settings -> Payment Gateways, choose MercadoPago and fill in your MercadoPago Client_id and Client_secret.
 
 ### Instalação e configuração em Português: ###
 
@@ -82,15 +81,6 @@ Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "C
 Habilite o MercadoPago, adicione o seu e-mail, Client_id e Client_secret.
 
 Pronto, sua loja já pode receber pagamentos pelo MercadoPago.
-
-== License ==
-
-This file is part of WooCommerce MercadoPago.
-WooCommerce MercadoPago is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published
-by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-WooCommerce MercadoPago is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along with Author Bio Box. If not, see <http://www.gnu.org/licenses/>.
 
 == Frequently Asked Questions ==
 
@@ -157,6 +147,11 @@ Fazemos a integração baseada na documentação oficial do MercadoPago que pode
 
 Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/mercadopago-para-woocommerce/).
 
+== Screenshots ==
+
+1. Settings page.
+2. Checkout page.
+
 == Changelog ==
 
 = 1.2 - 01/12/2012 =
@@ -193,7 +188,11 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/mercadopago-par
 
 * Enjoy it.
 
-== Screenshots ==
+== License ==
 
-1. screenshot-1.png
-2. screenshot-2.png
+This file is part of WooCommerce MercadoPago.
+WooCommerce MercadoPago is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+WooCommerce MercadoPago is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with Author Bio Box. If not, see <http://www.gnu.org/licenses/>.
