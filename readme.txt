@@ -189,7 +189,7 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/mercadopago-par
 * Adicionada opção para pagamento direto ou por janela modal.
 * Adicionada opção de sandbox.
 * Adicionada compatibilidade com o WooCommerce 2.1 ou superior.
-* Atualização das traduções em pt_BR e es_AR.
+* Melhoria nas traduções em pt_BR e es_AR.
 
 = 1.3 - 07/04/2013 =
 
