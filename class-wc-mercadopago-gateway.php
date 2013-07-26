@@ -20,7 +20,7 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
         $this->has_fields      = false;
         $this->method_title    = __( 'MercadoPago', 'wcmercadopago' );
 
-        // API urls.
+        // API URLs.
         $this->payment_url     = 'https://api.mercadolibre.com/checkout/preferences?access_token=';
         $this->ipn_url         = 'https://api.mercadolibre.com/collections/notifications/';
         $this->sandbox_ipn_url = 'https://api.mercadolibre.com/sandbox/collections/notifications/';
@@ -84,13 +84,18 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
-        ?>
-        <h3><?php _e( 'MercadoPago standard', 'wcmercadopago' ); ?></h3>
-        <p><?php _e( 'MercadoPago standard works by sending the user to MercadoPago to enter their payment information.', 'wcmercadopago' ); ?></p>
-        <table class="form-table">
-            <?php $this->generate_settings_html(); ?>
-        </table>
-        <?php
+        echo '<h3>' . __( 'MercadoPago standard', 'wcmercadopago' ) . '</h3>';
+        echo '<p>' . __( 'MercadoPago standard works by sending the user to MercadoPago to enter their payment information.', 'wcmercadopago' ) . '</p>';
+
+        // Checks if is valid for use.
+        if ( ! $this->is_valid_for_use() ) {
+            echo '<div class="inline error"><p><strong>' . __( 'MercadoPago Disabled', 'wcmercadopago' ) . '</strong>: ' . __( 'Works only with the currencies ARS, BRL, MXN, USD and VEF.', 'wcmercadopago' ) . '</p></div>';
+        } else {
+            // Generate the HTML For the settings form.
+            echo '<table class="form-table">';
+            $this->generate_settings_html();
+            echo '</table>';
+        }
     }
 
     /**
@@ -169,7 +174,7 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
                 'type' => 'checkbox',
                 'label' => __( 'Enable logging', 'wcmercadopago' ),
                 'default' => 'no',
-                'description' => sprintf( __( 'Log MercadoPago events, such as API requests, inside %s', 'wcmercadopago' ), '<code>woocommerce/logs/mercadopago' . sanitize_file_name( wp_hash( 'mercadopago' ) ) . '.txt</code>' ),
+                'description' => sprintf( __( 'Log MercadoPago events, such as API requests, inside %s', 'wcmercadopago' ), '<code>woocommerce/logs/mercadopago-' . sanitize_file_name( wp_hash( 'mercadopago' ) ) . '.txt</code>' ),
             )
         );
     }
@@ -177,9 +182,9 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
     /**
      * Generate the args to form.
      *
-     * @param  array $order Order data.
+     * @param  object $order Order data.
      *
-     * @return array
+     * @return array         Form arguments.
      */
     public function get_form_args( $order ) {
 
@@ -272,9 +277,9 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
     /**
      * Generate the form.
      *
-     * @param mixed $order_id
+     * @param int     $order_id Order ID.
      *
-     * @return string
+     * @return string           Payment form.
      */
     public function generate_form( $order_id ) {
 
@@ -314,9 +319,9 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
     /**
      * Process the payment and return the result.
      *
-     * @param int $order_id
+     * @param int    $order_id Order ID.
      *
-     * @return array
+     * @return array           Redirect.
      */
     public function process_payment( $order_id ) {
 
@@ -394,9 +399,11 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
     }
 
     /**
-     * Check ipn validity.
+     * Check IPN.
      *
-     * @return mixed
+     * @param  array $data MercadoPago post data.
+     *
+     * @return mixed       False or posted response.
      */
     public function check_ipn_request_is_valid( $data ) {
 
@@ -447,29 +454,22 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
      * @return void
      */
     public function check_ipn_response() {
-
         @ob_clean();
 
         $data = $this->check_ipn_request_is_valid( $_GET );
 
         if ( $data ) {
-
             header( 'HTTP/1.1 200 OK' );
-
             do_action( 'valid_mercadopago_ipn_request', $data );
-
         } else {
-
             wp_die( __( 'MercadoPago Request Failure', 'wcmercadopago' ) );
-
         }
-
     }
 
     /**
      * Successful Payment!
      *
-     * @param array $posted
+     * @param array $posted MercadoPago post data.
      *
      * @return void
      */
@@ -517,32 +517,32 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
                         }
 
                         // Payment completed.
-                        $order->add_order_note( __( 'The payment was approved by MercadoPago.', 'wcmercadopago' ) );
+                        $order->add_order_note( __( 'MercadoPago: Payment approved.', 'wcmercadopago' ) );
                         $order->payment_complete();
 
                         break;
                     case 'pending':
-                        $order->add_order_note( __( 'The user has not completed the payment process yet.', 'wcmercadopago' ) );
+                        $order->add_order_note( __( 'MercadoPago: The user has not completed the payment process yet.', 'wcmercadopago' ) );
 
                         break;
                     case 'in_process':
-                        $order->update_status( 'on-hold', __( 'Payment under review by MercadoPago.', 'wcmercadopago' ) );
+                        $order->update_status( 'on-hold', __( 'MercadoPago: Payment under review.', 'wcmercadopago' ) );
 
                         break;
                     case 'rejected':
-                        $order->add_order_note( __( 'The payment was declined. The user can try again.', 'wcmercadopago' ) );
+                        $order->add_order_note( __( 'MercadoPago: The payment was declined. The user can try again.', 'wcmercadopago' ) );
 
                         break;
                     case 'refunded':
-                        $order->update_status( 'refunded', __( 'The payment was returned to the user.', 'wcmercadopago' ) );
+                        $order->update_status( 'refunded', __( 'MercadoPago: The payment was returned to the user.', 'wcmercadopago' ) );
 
                         break;
                     case 'cancelled':
-                        $order->update_status( 'cancelled', __( 'Payment canceled by MercadoPago.', 'wcmercadopago' ) );
+                        $order->update_status( 'cancelled', __( 'MercadoPago: Payment canceled.', 'wcmercadopago' ) );
 
                         break;
                     case 'in_mediation':
-                        $order->add_order_note( __( 'It started a dispute for payment.', 'wcmercadopago' ) );
+                        $order->add_order_note( __( 'MercadoPago: It started a dispute for payment.', 'wcmercadopago' ) );
 
                         break;
 
@@ -560,7 +560,7 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function client_id_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your Client_id in MercadoPago. %sClick here to configure!%s', 'wcmercadopago' ), '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MercadoPago_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p><strong>' . __( 'MercadoPago Disabled', 'wcmercadopago' ) . '</strong>: ' . sprintf( __( 'You should inform your Client_id. %s', 'wcmercadopago' ), '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MercadoPago_Gateway' ) . '">' . __( 'Click here to configure!', 'wcmercadopago' ) . '</a>' ) . '</p></div>';
     }
 
     /**
@@ -569,6 +569,6 @@ class WC_MercadoPago_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function client_secret_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your Client_secret in MercadoPago. %sClick here to configure!%s', 'wcmercadopago' ), '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MercadoPago_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p><strong>' . __( 'MercadoPago Disabled', 'wcmercadopago' ) . '</strong>: ' . sprintf( __( 'You should inform your Client_secret. %s', 'wcmercadopago' ), '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MercadoPago_Gateway' ) . '">' . __( 'Click here to configure!', 'wcmercadopago' ) . '</a>' ) . '</p></div>';
     }
 }
