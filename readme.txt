@@ -3,8 +3,8 @@ Contributors: claudiosanches
 Donate link: http://claudiosmweb.com/doacoes/
 Tags: woocommerce, mercadopago, payment
 Requires at least: 3.5
-Tested up to: 3.9
-Stable tag: 1.9.0
+Tested up to: 3.9.2
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,10 @@ Please notice that WooCommerce must be installed and active.
 = Contribute =
 
 You can contribute to the source code in our [GitHub](https://github.com/claudiosmweb/woocommerce-mercadopago) page.
+
+= Translate =
+
+Translate this plugin in [Transifex](https://www.transifex.com/projects/p/woocommerce-mercadopago/).
 
 ### Descrição em Português: ###
 
@@ -52,10 +56,9 @@ Você pode esclarecer suas dúvidas usando:
 
 Você pode contribuir com código-fonte em nossa página no [GitHub](https://github.com/claudiosmweb/woocommerce-mercadopago).
 
-### Translators ###
+= Traduzir =
 
-* es_ES by [Marcelo Pedra](http://profiles.wordpress.org/kent-brockman)
-* es_AR by [Gustavo Coronel](http://profiles.wordpress.org/gcoronel/)
+Traduza este plugin no [Transifex](https://www.transifex.com/projects/p/woocommerce-mercadopago/)
 
 == Installation ==
 
@@ -82,6 +85,7 @@ Você pode acessar as suas informações de Client_id e Client_secret em:
 
 * [MercadoPago da Argentina](https://www.mercadopago.com/mla/herramientas/aplicaciones)
 * [MercadoPago do Brasil](https://www.mercadopago.com/mlb/ferramentas/aplicacoes)
+* [MercadoPago da Colômbia](https://www.mercadopago.com/mco/herramientas/aplicaciones)
 * [MercadoPago do México](https://www.mercadopago.com/mlm/herramientas/aplicaciones)
 * [MercadoPago da Venezuela](https://www.mercadopago.com/mlv/herramientas/aplicaciones)
 
@@ -89,6 +93,7 @@ Você pode acessar as suas informações de Client_id e Client_secret em:
 
 * [MercadoPago da Argentina](https://www.mercadopago.com/mla/herramientas/notificaciones)
 * [MercadoPago do Brasil](https://www.mercadopago.com/mlb/ferramentas/notificacoes)
+* [MercadoPago da Colômbia](https://www.mercadopago.com/mco/herramientas/notificaciones)
 * [MercadoPago do México](https://www.mercadopago.com/mlm/herramientas/notificaciones)
 * [MercadoPago da Venezuela](https://www.mercadopago.com/mlv/herramientas/notificaciones)
 
@@ -165,6 +170,14 @@ Consulte os meios de pagamento em "[Meios de pagamento e parcelamento](https://w
 
 No momento é aceito **ARL** (Argentine peso ley) e **BRL** (Real Brasileiro).
 
+= O pedido foi pago e ficou com o status de "processando" e não como "concluído", isto esta certo ? =
+
+Sim, esta certo e significa que o plugin esta trabalhando como deveria.
+
+Todo gateway de pagamentos no WooCommerce deve mudar o status do pedido para "processando" no momento que é confirmado o pagamento e nunca deve ser alterado sozinho para "concluído", pois o pedido deve ir apenas para o status "concluído" após ele ter sido entregue.
+
+Para produtos baixáveis a configuração padrão do WooCommerce é permitir o acesso apenas quando o pedido tem o status "concluído", entretanto nas configurações do WooCommerce na aba *Produtos* é possível ativar a opção **"Conceder acesso para download do produto após o pagamento"** e assim liberar o download quando o status do pedido esta como "processando".
+
 = Quais são as taxas de transações que o MercadoPago cobra? =
 
 Consulte a página "[Taxas do Mercado Pago](http://guia.mercadolivre.com.br/taxas-mercado-pago-12593-VGP)".
@@ -188,7 +201,15 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/mercadopago-par
 
 == Changelog ==
 
-= 1.9.0 - 17/05/2013 =
+= 2.0.0 - 16/08/2014 =
+
+* Adicionado suporte para a moeda `COP`, lembrando que depende da configuração do seu MercadoPago para isso funcionar.
+* Adicionado suporte para traduções no Transifex.
+* Corrigido o nome do arquivo principal.
+* Corrigida as strings de tradução.
+* Corrigido o link de cancelamento.
+
+= 1.9.0 - 17/05/2014 =
 
 * Improved the plugin classes.
 
@@ -263,9 +284,13 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/mercadopago-par
 
 == Upgrade Notice ==
 
-= 1.8.1 =
+= 2.0.0 =
 
-* Corrigido os parametros da conexão (cURL) que podiam gerar erro (`SSL connection timeout`) em alguns servidores.
+* Adicionado suporte para a moeda `COP`, lembrando que depende da configuração do seu MercadoPago para isso funcionar.
+* Adicionado suporte para traduções no Transifex.
+* Corrigido o nome do arquivo principal.
+* Corrigida as strings de tradução.
+* Corrigido o link de cancelamento.
 
 == License ==
 
